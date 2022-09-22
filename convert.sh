@@ -18,17 +18,17 @@ DEB_PACKAGE_NAME="sox"
     dnf install -y $YUM_PACKAGE_NAME
  elif cat /etc/*release | grep ^NAME | grep Rocky; then
     echo "==============================================="
-    echo "Installing packages $YUM_PACKAGE_NAME on RedHat"
+    echo "Installing packages $YUM_PACKAGE_NAME on Rocky Linux"
     echo "==============================================="
     dnf install -y $YUM_PACKAGE_NAME
   elif cat /etc/*release | grep ^NAME | grep Alma; then
     echo "==============================================="
-    echo "Installing packages $YUM_PACKAGE_NAME on RedHat"
+    echo "Installing packages $YUM_PACKAGE_NAME on Alma Linux"
     echo "==============================================="
     dnf install -y $YUM_PACKAGE_NAME
  elif cat /etc/*release | grep ^NAME | grep Fedora; then
     echo "================================================"
-    echo "Installing packages $YUM_PACKAGE_NAME on Fedorea"
+    echo "Installing packages $YUM_PACKAGE_NAME on Fedora"
     echo "================================================"
     dnf install -y $YUM_PACKAGE_NAME
  elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
@@ -53,6 +53,10 @@ DEB_PACKAGE_NAME="sox"
     echo "OS NOT DETECTED, couldn't install package $PACKAGE"
     exit 1;
  fi
+ 
+echo "============================================="
+echo "Converting audios to GSM, ALAW and ULAW"
+echo "============================================="
 
 for a in $(find . -name '*.sln16'); do
   sox -t raw -e signed-integer -b 16 -c 1 -r 16k $a -t gsm -r 8k `echo $a|sed "s/.sln16/.gsm/"`;
